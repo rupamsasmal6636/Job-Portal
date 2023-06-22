@@ -191,7 +191,7 @@ function JobSeekers() {
     return (
         <div>
             <Layout>
-                <Header style={headerStyle}>Company Profile</Header>
+                <Header style={headerStyle}>JobSeekers Profile</Header>
                 <Content>
 
                 </Content>
