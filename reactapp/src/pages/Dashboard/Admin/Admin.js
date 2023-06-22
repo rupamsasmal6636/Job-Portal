@@ -1,8 +1,8 @@
 import { Layout } from "antd";
-import AppHeader from "../../../components/AppHeader";
-import AppFooter from "../../../components/AppFooter";
-import SideMenu from "../../../components/SideMenu";
-import PageContent from "../../../components/PageContent";
+import AppHeader from "./components/AppHeader";
+import AppFooter from "./components/AppFooter";
+import SideMenu from "./components/SideMenu";
+import PageContent from "./components/PageContent";
 import { BrowserRouter } from "react-router-dom";
 
 const { Sider, Content } = Layout;
