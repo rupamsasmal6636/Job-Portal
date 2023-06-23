@@ -3,9 +3,12 @@ import { MenuList } from "../helpers/MenuList";
 import MenuItem from "../components/MenuItem";
 import "../styles/Menu.css";
 import Navbar from "../components/Navbar";
-
-
+import Footer from "../components/Footer";
+import { useLocation } from "react-router-dom";
 function Menu() {
+  
+  const location = useLocation();
+  const isHomePage = location.pathname === "/";
   return (
     <>
     <Navbar/>
@@ -24,6 +27,7 @@ function Menu() {
         })}
       </div>
     </div>
+    {!isHomePage && <Footer />}
     </>
 
   );

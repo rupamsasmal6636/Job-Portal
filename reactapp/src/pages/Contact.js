@@ -50,8 +50,12 @@ import emailjs from "@emailjs/browser";
 import "../styles/Contact.css";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
-
+import { useLocation } from "react-router-dom";
 const Contact = () => {
+
+  
+  const location = useLocation();
+  const isHomePage = location.pathname === "/";
   const form = useRef();
   const [message, setMessage] = useState(""); // State for the message
 
@@ -100,6 +104,7 @@ const Contact = () => {
       </form>
       <p>{message}</p> {/* Display the message */}
       </div>
+      {!isHomePage && <Footer />}
     </>
     );
 };
