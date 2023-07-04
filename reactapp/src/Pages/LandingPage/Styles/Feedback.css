@@ -15,7 +15,7 @@
   }
   
   .menuList {
-    width: 70vw;
+    width: 100vw;
     height: auto;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
@@ -30,8 +30,8 @@
   
   .menuItem1 {
     border-radius: 15px;
-    width: 300px;
-    height: 400px;
+    width: 400px;
+    height: auto;
     margin: 20px;
     box-shadow: 0px 3px 15px rgba(0, 0, 0, 0.2);
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande',
@@ -57,6 +57,7 @@
     margin-left: 20px;
     line-height: 1.5;
     margin-bottom: 5px;
+    font-size: 22px;
   }
   .menuItem1 h1{
     text-align: center;

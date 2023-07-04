@@ -1,6 +1,6 @@
-import search from "../assert/Search.jpg";
-import profile from "../assert/profile.jpg";
-import Employer from "../assert/Employer.jpg";
+import search from "../Assert/Image/Search.jpg";
+import profile from "../Assert/Image/profile.jpg";
+import Employer from "../Assert/Image/Employer.jpg";
 
 export const MenuList = [
   {

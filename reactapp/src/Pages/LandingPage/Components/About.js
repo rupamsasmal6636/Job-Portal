@@ -1,6 +1,7 @@
-import Navbar from "../components/Navbar";
-import about from "../assert/about.jpg";
-import "../styles/About.css";
+import Navbar from "../Components/Navbar";
+import about from "../Assert/Image/about.jpg";
+import "../Styles/About.css";
+import Footer from "../Components/Footer";
 function About() {
   return (
     <>
@@ -21,7 +22,7 @@ Our platform boasts a user-friendly interface and powerful features designed to 
 For employers, JobPortal offers a robust recruitment solution. Our platform enables businesses of all sizes to create compelling job postings, attract qualified candidates, and manage the hiring process efficiently.</p>
       </div>
     </div>
- 
+ <Footer></Footer>
     </>
   );
 }

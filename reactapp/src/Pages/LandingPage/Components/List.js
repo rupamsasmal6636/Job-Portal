@@ -1,5 +1,5 @@
 import React from "react";
-import "../styles/Feedback.css";
+import "../Styles/Feedback.css";
 function List({title, description }) {
   return (
     <div className="menuItem1">

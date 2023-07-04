@@ -1,9 +1,9 @@
 import React from "react";
-import { MenuLists } from "../helpers/MenuLists";
-import List from "../components/List";
-import "../styles/Feedback.css";
-import Navbar from "../components/Navbar";
-import Footer from "../components/Footer";
+import { MenuLists } from "../Helpers/MenuLists";
+import List from "./List";
+import "../Styles/Feedback.css";
+import Navbar from "../Components/Navbar";
+
 
 function Menu() {
   return (

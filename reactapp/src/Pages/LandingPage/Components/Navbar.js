@@ -1,47 +1,10 @@
-/*
-
-import React, { useState } from "react";
-import { MenuData } from "../helpers/MenuData";
-import "../styles/NavbarStyles.css";
-import { GoAlert } from "react-icons/go";
-const Navbar = () => {
-  const [clicked, setClicked] = useState(false);
-
-  const handleClick = () => {
-    setClicked(!clicked);
-  };
-
-  return (
-    <nav className="NavbarItems">
-      <h1 className="logo">
-      <GoAlert/> Job Portal
-      
-      </h1>
-      <div className="menu-icons" onClick={handleClick}>
-        <i className={clicked ? "fas fa-times" : "fas fa-bars"}></i>
-      </div>
-      <ul className={clicked ? "nav-menu active" : "nav-menu"}>
-        {MenuData.map((item, index) => (
-          <li key={index}>
-            <a href={item.url} className={item.cName}>
-              <i className={item.icon}></i>
-              {item.title}
-            </a>
-          </li>
-        ))}
-      </ul>
-    </nav>
-  );
-};
-
-export default Navbar; */
 
 
 
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import '../styles/NavbarStyles.css';
-import icon from "../assert/icon.jpg";
+import '../Styles/NavbarStyles.css';
+import icon from "../Assert/Image/icon.jpg";
 
 function Navbar() {
   const [click, setClick] = useState(false);

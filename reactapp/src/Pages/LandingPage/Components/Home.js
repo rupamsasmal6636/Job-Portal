@@ -1,8 +1,7 @@
-import "../styles/HomeStyles.css";
-import img1 from "../assert/img1.jpeg";
-import Navbar from "../components/Navbar";
-import Footer from "../components/Footer";
-import Service from "./Service";
+import "../Styles/HomeStyles.css";
+import img1 from "../Assert/Image/img1.jpeg";
+import Navbar from "../Components/Navbar";
+import Footer from "../Components/Footer";
 import Menu from "./Service";
 import Contact1 from "./Contact";
 import Feedback from "./Feedback";
@@ -11,7 +10,6 @@ function Home() {
   return (
     <>
     <Navbar></Navbar>
-    
     <div className='hero-container'>
      <img src={img1} alt="BigCo Inc. logo"/>  
         <h1>Find Your Dream Job Today</h1>

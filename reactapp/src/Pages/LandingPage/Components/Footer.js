@@ -3,7 +3,7 @@ import {BsFacebook} from "react-icons/bs";
 import { BsTwitter } from "react-icons/bs";
 import { BsInstagram } from "react-icons/bs";
 import { BsLinkedin } from "react-icons/bs";
-import "../styles/Footer.css";
+import "../Styles/Footer.css";
 function Footer(){
     return(
         <div className="footer">
