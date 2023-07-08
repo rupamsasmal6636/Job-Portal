@@ -23,13 +23,13 @@ function App() {
   return (
     <div className="App">
       
-      <BrowserRouter>
+      {/* <BrowserRouter>
         <Routes>
         <Route path='/' element ={<HomePage/>}/>
         <Route path='/signup' element ={<SignUpPage/>}/>  
         <Route path='/login' element ={<Login/>}/>
         </Routes>
-      </BrowserRouter>
+      </BrowserRouter> */}
       {/* <AdminPage/> 
        <JobDetails/> */}
 
@@ -43,16 +43,16 @@ function App() {
         </Routes>
         <ToastContainer />
       </BrowserRouter> */}
-      {/* <BrowserRouter>
+      <BrowserRouter>
       <Routes>
         <Route path="/" element={<Home1 />} />
         <Route path="/about" element={<About />} />
         <Route path="/service" element={<Service />} />
-        <Route path="/sign-up" element={<Signup />} />
+        <Route path="/signup" element={<SignUpPage />} />
         <Route path="/contact" element={<Contact />} />
-        <Route path="/login" element={<Login1 />} />
+        <Route path="/login" element={<Login />} />
       </Routes>
-    </BrowserRouter> */}
+    </BrowserRouter>
     </div>
   );
 }
