@@ -3,11 +3,13 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import Candidate from './JobSeeker/Candidate';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <App />
+    <Candidate uid={1} type={"VIEW"} />     {/* types coudld be MODIFY, VIEW, ADD */}
   </React.StrictMode>
 );
 
