@@ -19,6 +19,8 @@ import About from "./Pages/LandingPage/Components/About";
 import Signup from "./Pages/LandingPage/Components/Signup";
 import Contact from "./Pages/LandingPage/Components/Contact";
 import Login1 from "./Pages/LandingPage/Components/Login";
+import JobseekerDashboard from "./Pages/Dashboard/Jobseeker_Dashboard/JobseekerDashboard";
+import Profile from "./Pages/Dashboard/Jobseeker_Dashboard/Pages/Profile";
 function App() {
   return (
     <div className="App">
@@ -30,10 +32,10 @@ function App() {
         <Route path='/login' element ={<Login/>}/>
         </Routes>
       </BrowserRouter> */}
-      {/* <AdminPage/> 
-       <JobDetails/> */}
+      {/*  <AdminPage/>  */}
+      {/*  <JobDetails/>  */}
 
-      {/* <BrowserRouter>
+     {/*  <BrowserRouter>
         <Navbar />
         <Routes>
           <Route path='/' element={<Home />}/>
@@ -43,7 +45,7 @@ function App() {
         </Routes>
         <ToastContainer />
       </BrowserRouter> */}
-      <BrowserRouter>
+      {/* <BrowserRouter>
       <Routes>
         <Route path="/" element={<Home1 />} />
         <Route path="/about" element={<About />} />
@@ -52,7 +54,11 @@ function App() {
         <Route path="/contact" element={<Contact />} />
         <Route path="/login" element={<Login />} />
       </Routes>
+    </BrowserRouter> */}
+    <BrowserRouter>
+           <JobseekerDashboard />
     </BrowserRouter>
+    
     </div>
   );
 }
