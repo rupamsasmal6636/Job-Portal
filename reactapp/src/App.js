@@ -20,7 +20,6 @@ import Signup from "./Pages/LandingPage/Components/Signup";
 import Contact from "./Pages/LandingPage/Components/Contact";
 import Login1 from "./Pages/LandingPage/Components/Login";
 import JobseekerDashboard from "./Pages/Dashboard/Jobseeker_Dashboard/JobseekerDashboard";
-import Profile from "./Pages/Dashboard/Jobseeker_Dashboard/Pages/Profile";
 import JobSearchPage from './Pages/JobSearch/JobSearchPage';
 
 function App() {
