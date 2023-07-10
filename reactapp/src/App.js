@@ -20,6 +20,7 @@ import Signup from "./Pages/LandingPage/Components/Signup";
 import Contact from "./Pages/LandingPage/Components/Contact";
 import Login1 from "./Pages/LandingPage/Components/Login";
 import JobSearchPage from './Pages/JobSearch/JobSearchPage';
+import JobseekerDashboard from "./Pages/Dashboard/Jobseeker_Dashboard/JobseekerDashboard";
 
 function App() {
   return (
@@ -57,7 +58,11 @@ function App() {
       </Routes>
     </BrowserRouter> */}
 
-    <JobSearchPage />
+   {/*  <JobSearchPage /> */}
+
+    <BrowserRouter>
+           <JobseekerDashboard />
+    </BrowserRouter>
     </div>
   );
 }
