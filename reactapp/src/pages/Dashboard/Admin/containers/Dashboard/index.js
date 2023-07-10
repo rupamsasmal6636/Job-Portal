@@ -7,55 +7,16 @@ import InterviewPrepImage from "../../assets/images/interviewprep.png";
 import MultiCarousel from "../../components/Carousel";
 import { useEffect, useState } from "react";
 import axios from "axios";
-
-function Dashboard() {
+function Dashboard({ setContent }) {
   const [companies, setCompanies] = useState([]);
-  const [statistics, setStatistics] = useState({
-    jobsPosted: null,
-    applications: null,
-    companies: null,
-    jobSeekers: null,
-  });
+  const [statistics, setStatistics] = useState({});
   useEffect(() => {
-    loadCompanies();
     loadStatistics();
-    setCompanies(
-      [
-      {
-        title: "IT",
-      },
-      {
-        title: "CSE",
-      },
-      {
-        title: "ECE",
-      },
-      {
-        title: "MECH",
-      },
-      {
-        title: "CCE",
-      },
-      {
-        title: "CCE",
-      },
-      {
-        title: "CCE",
-      },
-      {
-        title: "CCE",
-      },
-    ]);
   }, [companies, statistics]);
 
-  const loadCompanies = async () => {
-    // const result = await axios.get("http://localhost:8081/employers");
-    // setCompanies(result.data);
-  };
-
   const loadStatistics = async () => {
-    // const result = await axios.get("http://localhost:8081/statistics");
-    // setStatistics(result?.data);
+    const result = await axios.get("http://localhost:4000/admin/statistics");
+    setStatistics(result?.data);
   };
 
   return (
@@ -161,7 +122,12 @@ function Dashboard() {
           }}
         >
           <h2 className="top-category-heading">All Companies</h2>
-          <Button type="primary" icon={<TbCategory />} size={"large"}>
+          <Button
+            type="primary"
+            icon={<TbCategory />}
+            size={"large"}
+            onClick={() => setContent("CompanyProfile")}
+          >
             View All Companies
           </Button>
         </div>
@@ -172,12 +138,14 @@ function Dashboard() {
 }
 function DashboardCard({ title, value, icon }) {
   return (
-    <Card>
-      <Space direction="horizontal">
-        {icon}
-        <Statistic title={title} value={value} />
-      </Space>
-    </Card>
+    <>
+      <Card>
+        <Space direction="horizontal">
+          {icon}
+          <Statistic title={title} value={value} />
+        </Space>
+      </Card>
+    </>
   );
 }
 export default Dashboard;

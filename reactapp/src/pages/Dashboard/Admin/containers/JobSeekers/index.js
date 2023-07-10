@@ -3,10 +3,10 @@ import MyTable from "../../components/Table";
 import { useState, useRef, useEffect } from "react";
 import { SearchOutlined } from "@ant-design/icons";
 import Highlighter from "react-highlight-words";
+import axios from "axios";
 const { Header, Content } = Layout;
 function JobSeekers() {
   const defaultTitle = () => "List of Job Seekers";
-
   const [hasData, setHasData] = useState(true); // state is required
   const [searchText, setSearchText] = useState("");
   const [searchedColumn, setSearchedColumn] = useState("");
@@ -24,10 +24,11 @@ function JobSeekers() {
   const [data, setData] = useState([]);
   useEffect(() => {
     loadData();
-  }, [data]);
+  }, []);
   const loadData = async () => {
-    // const result = await axios.get("http://localhost:8081/jobSeekers");
-    // setCompanies(result.data);
+    const result = await axios.get("http://localhost:4000/job-seekers");
+    console.log(result?.data, " is resuktss");
+    setData(result?.data);
   };
 
   const getColumnSearchProps = (dataIndex) => ({
@@ -127,7 +128,7 @@ function JobSeekers() {
       dataIndex: "id",
       sorter: true,
       ...getColumnSearchProps("id"),
-      width: "5%",
+      width: "6%",
     },
     {
       title: "Name",
@@ -167,15 +168,6 @@ function JobSeekers() {
       ),
     },
   ];
-  for (let i = 1; i <= 50; i++) {
-    data.push({
-      key: i,
-      name: "John Brown",
-      emailId: "johnbrown@gmail.com",
-      experience:
-        "I have worked in abc company for 4 years and def company for 1 year.",
-    });
-  }
 
   const headerStyle = {
     textAlign: "center",

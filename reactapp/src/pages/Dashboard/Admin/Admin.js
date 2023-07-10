@@ -3,6 +3,7 @@ import AppHeader from "./components/AppHeader";
 import AppFooter from "./components/AppFooter";
 import SideMenu from "./components/SideMenu";
 import PageContent from "./components/PageContent";
+import { useState } from "react";
 
 const { Sider, Content } = Layout;
 
@@ -15,16 +16,17 @@ function Admin() {
     color: "pink",
     width: "30%",
   };
+  const [content, setContent] = useState("Dashboard");
   return (
     <>
       <Layout>
         <AppHeader />
         <Layout hasSider>
           <Sider style={siderStyle}>
-            <SideMenu />
+            <SideMenu setContent={setContent} />
           </Sider>
           <Content style={contentStyle}>
-            <PageContent />
+            <PageContent content={content} setContent={setContent} />
           </Content>
         </Layout>
         <AppFooter />

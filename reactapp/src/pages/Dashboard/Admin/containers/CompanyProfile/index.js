@@ -4,6 +4,7 @@ import { useState, useRef, useEffect } from "react";
 import { SearchOutlined } from "@ant-design/icons";
 import { FaUser } from "react-icons/fa";
 import Highlighter from "react-highlight-words";
+import axios from "axios";
 const { Header, Content } = Layout;
 function CompanyProfile() {
   const defaultTitle = () => "List of Companies";
@@ -28,8 +29,8 @@ function CompanyProfile() {
     loadData();
   }, [data]);
   const loadData = async () => {
-    // const result = await axios.get("http://localhost:8081/employers");
-    // setCompanies(result.data);
+    const result = await axios.get("http://localhost:4000/employers");
+    setData(result.data);
   };
 
   const getColumnSearchProps = (dataIndex) => ({
@@ -129,7 +130,7 @@ function CompanyProfile() {
       dataIndex: "id",
       sorter: true,
       ...getColumnSearchProps("id"),
-      width: "5%",
+      width: "6%",
     },
     {
       title: "Name",
@@ -138,9 +139,9 @@ function CompanyProfile() {
       ...getColumnSearchProps("name"),
     },
     {
-      title: "Email",
-      dataIndex: "email",
-      ...getColumnSearchProps("email"),
+      title: "Email ID",
+      dataIndex: "emailId",
+      ...getColumnSearchProps("emailId"),
     },
     {
       title: "Description",
@@ -166,17 +167,6 @@ function CompanyProfile() {
       ),
     },
   ];
-  for (let i = 1; i <= 50; i++) {
-    data.push({
-      key: i,
-      name: "ABC Private Ltd",
-      avatar: <FaUser />,
-      no_of_employees: Number(`${i}2`),
-      location: "Coimbatore",
-      category: "IT",
-      website: `www.abc.com`,
-    });
-  }
 
   const headerStyle = {
     textAlign: "center",
