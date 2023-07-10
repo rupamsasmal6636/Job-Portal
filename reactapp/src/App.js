@@ -21,6 +21,8 @@ import Contact from "./Pages/LandingPage/Components/Contact";
 import Login1 from "./Pages/LandingPage/Components/Login";
 import JobSearchPage from './Pages/JobSearch/JobSearchPage';
 import JobseekerDashboard from "./Pages/Dashboard/Jobseeker_Dashboard/JobseekerDashboard";
+import EmployerProfile from './Pages/Employer/Components/EmployerProfile';
+import EmployerEditProfile from './Pages/Employer/Components/EmployerEditProfile';
 
 function App() {
   return (
@@ -59,10 +61,17 @@ function App() {
     </BrowserRouter> */}
 
    {/*  <JobSearchPage /> */}
+   <BrowserRouter>
+       <Routes>
+          <Route path="/empeditprofile" element={<EmployerEditProfile />} />
+          <Route path="/empprofile/:id" element={<EmployerProfile />} />
+        </Routes>
+        
+      </BrowserRouter>
 
-    <BrowserRouter>
+    {/*<BrowserRouter>
            <JobseekerDashboard />
-    </BrowserRouter>
+  </BrowserRouter>*/}
     </div>
   );
 }
