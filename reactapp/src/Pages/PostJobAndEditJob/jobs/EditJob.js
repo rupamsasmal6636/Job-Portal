@@ -13,14 +13,10 @@ const EditJob = () => {
 
   const [job,setJob] = useState({
         
-    companyName: "",
-    role: "",
+    title: "",
     requirements: "",
     description: "",
     location: "",
-    salary: "",
-    postedDate: new Date().toISOString().split('T')[0],
-    expireDate: ""
   })
 
   const changeHandler = (e) => {
@@ -37,13 +33,8 @@ const EditJob = () => {
 
   const submitHandler = async (e) => {
     e.preventDefault()
-    const formattedJob = {
-      ...job,
-      postedDate: formatDate(job.postedDate),
-      expireDate: formatDate(job.expireDate),
-    };
     try {
-      await axios.put(`http://localhost:8081/job/${id}`, formattedJob);
+      await axios.put(`http://localhost:8080/jobs/${id}`, job);
       toast.success("updated successfully",{
         autoClose:2000
       })
@@ -56,24 +47,10 @@ const EditJob = () => {
   };
   
 
-  const formatDate = (dateString) => {
-    const date = new Date(dateString);
-    const day = String(date.getDate()).padStart(2, '0');
-    const month = String(date.getMonth() + 1).padStart(2, '0');
-    const year = String(date.getFullYear());
-    return `${day}-${month}-${year}`;
-  };
-
   const loadAJob = useCallback(async () => {
     try {
-      const result = await axios.get(`http://localhost:8081/job/${id}`);
-      const { expireDate, ...otherData } = result.data;
-      setJob((prevJob) => ({
-        ...prevJob,
-        ...otherData,
-        expireDate: formatDate(expireDate),
-        postedDate: new Date().toISOString().split('T')[0]
-      }));
+      const result = await axios.get(`http://localhost:8080/jobs/${id}`);
+      setJob(result.data);
     } catch (error) {
       console.log('Error occurred: ', error);
     }
@@ -87,32 +64,19 @@ const EditJob = () => {
     <div style={{backgroundColor: 'whitesmoke'}}>
        <div className='container'>
       <div className='row'>
-        <div className='col-md-6 offset-md-3 border rounded p-4 mt-2 shadow '>
+        <div className='col-md-9 offset-md-0'>
           <form onSubmit={submitHandler}>
+          <div className='border rounded p-4 mt-2 shadow'>
             <h2 className='text-center m-4'>Update Job</h2>
             <div className='mb-3'>
-              <label htmlFor='companyName' className='form-label'>
-                Company Name
-              </label>
-              <input type='text'
-                     id='companyName' 
-                     className='form-control opacity-75' 
-                     name='companyName' 
-                     value={job.companyName}
-                     placeholder='Enter company Name'
-                     onChange={changeHandler}
-                     required 
-              />
-            </div>
-            <div className='mb-3'>
-              <label htmlFor='role' className='form-label'>
+              <label htmlFor='title' className='form-label'>
                 Role
               </label>
               <input type='text'
-                     id='role' 
+                     id='title' 
                      className='form-control opacity-75' 
-                     name='role' 
-                     value={job.role}
+                     name='title' 
+                     value={job.title}
                      placeholder='Enter role of a job'
                      onChange={changeHandler}
                      required 
@@ -131,21 +95,7 @@ const EditJob = () => {
                      onChange={changeHandler}
                      required 
               />
-            </div> 
-            <div className="mb-3">
-                    <label htmlFor="expireDate">
-                      Expire Date
-                    </label>
-                    <input
-                      type="date"
-                      id="expireDate"
-                      className='form-control opacity-75'
-                      name="expireDate"
-                      value={job.expireDate}
-                      onChange={changeHandler}
-                      required
-                    />
-            </div>     
+            </div>      
             <div className='mb-3'>
               <label htmlFor='location' className='form-label'>
                 Location
@@ -160,26 +110,6 @@ const EditJob = () => {
                      required 
               />
             </div>
-              <div className='mb-3'>
-                <label htmlFor='salary' className='form-label'>
-                  Salary
-                </label>
-                <input type="number" 
-                      id="salary" 
-                      className='form-control'
-                      name="salary" 
-                      value={job.salary}
-                      onChange={changeHandler}
-                      onKeyDown={(event) => {
-                        if (event.key === "-") {
-                          event.preventDefault();
-                        }
-                      }}
-                      min={0}
-                      required
-                      
-                      ></input>
-              </div>
               <div className='mb-3'>
                 <label htmlFor='description' className='form-label'>
                   Description
@@ -203,6 +133,7 @@ const EditJob = () => {
                       Cancel
                     </button>
                   </Link>
+              </div>
               </div>
           </form>
         </div>

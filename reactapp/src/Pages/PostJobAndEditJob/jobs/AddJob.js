@@ -1,182 +1,111 @@
-import axios from 'axios'
-import React, { useState } from 'react'
+import axios from 'axios';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
-//added comment
 const AddJob = () => {
+  let navigate = useNavigate();
 
-  let navigate = useNavigate()
-
-  const [job,setJob] = useState({
-        
-    companyName: "",
-    role: "",
-    requirements: "",
-    description: "",
-    location: "",
-    salary: "",
-    postedDate: new Date().toISOString().split('T')[0],
-    expireDate: ""
-  })
+  const [job, setJob] = useState({
+    title: '',
+    requirements: '',
+    description: '',
+    location: '',
+  });
 
   const changeHandler = (e) => {
     const { name, value } = e.target;
 
-    
-      setJob((prevFormData) => ({
-        ...prevFormData,
-        [name]: value,
-      }));
-    
+    setJob((prevFormData) => ({
+      ...prevFormData,
+      [name]: value,
+    }));
   };
 
   const submitHandler = async (e) => {
-    e.preventDefault()
+    e.preventDefault();
     try {
-      await axios.post("http://localhost:8081/job", formattedJob);
-     toast.success("posted successfully",{
-      autoClose:2000
-     })
-     navigate('/')
+      await axios.post('http://localhost:8080/jobs', job);
+      toast.success('Posted successfully', {
+        autoClose: 2000,
+      });
+      navigate('/');
     } catch (error) {
-      
-      console.error("Error occurred:", error);
+      console.error('Error occurred:', error);
     }
-    console.log(job)
-    
-  };
-  
-
-  const formatDate = (dateString) => {
-    const date = new Date(dateString);
-    const day = String(date.getDate()).padStart(2, '0');
-    const month = String(date.getMonth() + 1).padStart(2, '0');
-    const year = String(date.getFullYear());
-    return `${day}-${month}-${year}`;
-  };
-
-  const formattedJob = {
-    ...job,
-    postedDate: formatDate(job.postedDate),
-    expireDate: formatDate(job.expireDate),
   };
 
   return (
-    <div style={{
-      backgroundColor:'whitesmoke'
-    }}>
+    <div style={{ backgroundColor: 'whitesmoke' }}>
       <div className='container'>
-      <div className='row'>
-        <div className='col-md-6 offset-md-3 border rounded p-4 mt-2 shadow'>
-          <form onSubmit={submitHandler}>
-            <h2 className='text-center m-4'>Add Job</h2>
-            <div className='mb-3'>
-              <label htmlFor='companyName' className='form-label'>
-                Company Name
-              </label>
-              <input type='text'
-                     id='companyName' 
-                     className='form-control opacity-75' 
-                     name='companyName' 
-                     value={job.companyName}
-                     placeholder='Enter company Name'
-                     onChange={changeHandler}
-                     required 
-              />
-            </div>
-            <div className='mb-3'>
-              <label htmlFor='role' className='form-label'>
-                Role
-              </label>
-              <input type='text'
-                     id='role' 
-                     className='form-control opacity-75' 
-                     name='role' 
-                     value={job.role}
-                     placeholder='Enter role of a job'
-                     onChange={changeHandler}
-                     required 
-              />
-            </div>
-            <div className='mb-3'>
-              <label htmlFor='requirements' className='form-label'>
-                Requirements
-              </label>
-              <input type='text' 
-                     id='requirements'
-                     className='form-control opacity-75' 
-                     name='requirements' 
-                     value={job.requirements}
-                     placeholder='Enter Requirements'
-                     onChange={changeHandler}
-                     required 
-              />
-            </div> 
-            <div className="mb-3">
-                    <label htmlFor="expireDate">
-                      Expire Date
-                    </label>
-                    <input
-                      type="date"
-                      id="expireDate"
-                      className='form-control opacity-75'
-                      name="expireDate"
-                      value={job.expireDate}
-                      onChange={changeHandler}
-                      required
-                    />
-            </div>     
-            <div className='mb-3'>
-              <label htmlFor='location' className='form-label'>
-                Location
-              </label>
-              <input type='text' 
-                     id='location'
-                     className='form-control opacity-75' 
-                     name='location' 
-                     value={job.location}
-                     placeholder='Enter location'
-                     onChange={changeHandler}
-                     required 
-              />
-            </div>
-              <div className='mb-3'>
-                <label htmlFor='salary' className='form-label'>
-                  Salary
-                </label>
-                <input type="number" 
-                      id="salary" 
-                      className='form-control'
-                      name="salary" 
-                      value={job.salary}
-                      onChange={changeHandler}
-                      onKeyDown={(event) => {
-                        if (event.key === "-") {
-                          event.preventDefault();
-                        }
-                      }}
-                      min={0}
-                      required
-                      
-                      ></input>
-              </div>
-              <div className='mb-3'>
-                <label htmlFor='description' className='form-label'>
-                  Description
-                </label>
-                <textarea id="description" 
-                          className='form-control opacity-75'
-                          name="description" 
-                          value={job.description}
-                          placeholder='Enter job description'
-                          rows="4" 
-                          cols="50"
-                          onChange={changeHandler}
-                          required></textarea>
-              </div>
-              <div className='d-flex justify-content-center'>
+        <div className='row'>
+          <div className='col-md-9 offset-md-0'>
+            <form onSubmit={submitHandler}>
+              <div className='border rounded p-4 mt-2 shadow'>
+                <h2 className='text-center m-4'>Add Job</h2>
+                <div className='mb-3'>
+                  <label htmlFor='title' className='form-label'>
+                    Title
+                  </label>
+                  <input
+                    type='text'
+                    id='title'
+                    className='form-control opacity-75'
+                    name='title'
+                    value={job.title}
+                    placeholder='Enter role of a job'
+                    onChange={changeHandler}
+                    required
+                  />
+                </div>
+                <div className='mb-3'>
+                  <label htmlFor='requirements' className='form-label'>
+                    Requirements
+                  </label>
+                  <input
+                    type='text'
+                    id='requirements'
+                    className='form-control opacity-75'
+                    name='requirements'
+                    value={job.requirements}
+                    placeholder='Enter Requirements'
+                    onChange={changeHandler}
+                    required
+                  />
+                </div>
+                <div className='mb-3'>
+                  <label htmlFor='location' className='form-label'>
+                    Location
+                  </label>
+                  <input
+                    type='text'
+                    id='location'
+                    className='form-control opacity-75'
+                    name='location'
+                    value={job.location}
+                    placeholder='Enter location'
+                    onChange={changeHandler}
+                    required
+                  />
+                </div>
+                <div className='mb-3'>
+                  <label htmlFor='description' className='form-label'>
+                    Description
+                  </label>
+                  <textarea
+                    id='description'
+                    className='form-control opacity-75'
+                    name='description'
+                    value={job.description}
+                    placeholder='Enter job description'
+                    rows='4'
+                    cols='50'
+                    onChange={changeHandler}
+                    required
+                  ></textarea>
+                </div>
+                <div className='d-flex justify-content-center'>
                   <button type='submit' className='btn btn-outline-primary'>
                     Submit
                   </button>
@@ -185,13 +114,14 @@ const AddJob = () => {
                       Cancel
                     </button>
                   </Link>
+                </div>
               </div>
-          </form>
+            </form>
+          </div>
         </div>
       </div>
     </div>
-    </div>
-  )
-}
+  );
+};
 
-export default AddJob
+export default AddJob;

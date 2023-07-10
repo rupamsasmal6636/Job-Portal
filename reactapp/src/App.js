@@ -38,7 +38,7 @@ function App() {
       {/* <AdminPage/> 
        <JobDetails/> */}
 
-      {/* <BrowserRouter>
+      <BrowserRouter>
         <Navbar />
         <Routes>
           <Route path='/' element={<Home />}/>
@@ -47,7 +47,7 @@ function App() {
           <Route path='/viewjob/:id' element={<ViewJob />} />
         </Routes>
         <ToastContainer />
-      </BrowserRouter> */}
+      </BrowserRouter>
       
       {/* <BrowserRouter>
       <Routes>
@@ -61,13 +61,13 @@ function App() {
     </BrowserRouter> */}
 
    {/*  <JobSearchPage /> */}
-   <BrowserRouter>
+   {/* <BrowserRouter>
        <Routes>
           <Route path="/empeditprofile" element={<EmployerEditProfile />} />
           <Route path="/empprofile/:id" element={<EmployerProfile />} />
         </Routes>
         
-      </BrowserRouter>
+      </BrowserRouter> */}
 
     {/*<BrowserRouter>
            <JobseekerDashboard />
