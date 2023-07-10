@@ -1,182 +1,202 @@
 import { Space, Layout, Button, Input } from "antd";
 import MyTable from "../../components/Table";
-import { useState, useRef } from 'react';
-import { SearchOutlined } from '@ant-design/icons';
-import { FaUser } from "react-icons/fa";
-import Highlighter from 'react-highlight-words';
+import { useState, useRef, useEffect } from "react";
+import { SearchOutlined } from "@ant-design/icons";
+import Highlighter from "react-highlight-words";
+import axios from "axios";
 const { Header, Content } = Layout;
 function JobSeekers() {
+  const defaultTitle = () => "List of Job Seekers";
+  const [hasData, setHasData] = useState(true); // state is required
+  const [searchText, setSearchText] = useState("");
+  const [searchedColumn, setSearchedColumn] = useState("");
+  const searchInput = useRef(null);
 
-    const defaultTitle = () => 'List of Job Seekers';
+  const handleSearch = (selectedKeys, confirm, dataIndex) => {
+    confirm();
+    setSearchText(selectedKeys[0]);
+    setSearchedColumn(dataIndex);
+  };
+  const handleReset = (clearFilters) => {
+    clearFilters();
+    setSearchText("");
+  };
+  const [data, setData] = useState([]);
+  useEffect(() => {
+    loadData();
+  }, []);
+  const loadData = async () => {
+    const result = await axios.get("http://localhost:4000/job-seekers");
+    console.log(result?.data, " is resuktss");
+    setData(result?.data);
+  };
 
-    const [hasData, setHasData] = useState(true); // state is required
-    const [searchText, setSearchText] = useState('');
-    const [searchedColumn, setSearchedColumn] = useState('');
-    const searchInput = useRef(null);
+  const getColumnSearchProps = (dataIndex) => ({
+    filterDropdown: ({
+      setSelectedKeys,
+      selectedKeys,
+      confirm,
+      clearFilters,
+      close,
+    }) => (
+      <div
+        style={{
+          padding: 8,
+        }}
+        onKeyDown={(e) => e.stopPropagation()}
+      >
+        <Input
+          ref={searchInput}
+          placeholder={`Search ${dataIndex}`}
+          value={selectedKeys[0]}
+          onChange={(e) =>
+            setSelectedKeys(e.target.value ? [e.target.value] : [])
+          }
+          onPressEnter={() => handleSearch(selectedKeys, confirm, dataIndex)}
+          style={{
+            marginBottom: 8,
+            display: "block",
+          }}
+        />
+        <Space>
+          <Button
+            type="primary"
+            onClick={() => handleSearch(selectedKeys, confirm, dataIndex)}
+            icon={<SearchOutlined />}
+            size="small"
+            style={{
+              width: 90,
+            }}
+          >
+            Search
+          </Button>
+          <Button
+            onClick={() => clearFilters && handleReset(clearFilters)}
+            size="small"
+            style={{
+              width: 90,
+            }}
+          >
+            Reset
+          </Button>
 
-    const handleSearch = (selectedKeys, confirm, dataIndex) => {
-        confirm();
-        setSearchText(selectedKeys[0]);
-        setSearchedColumn(dataIndex);
-    };
-    const handleReset = (clearFilters) => {
-        clearFilters();
-        setSearchText('');
-    };
+          <Button
+            type="link"
+            size="small"
+            onClick={() => {
+              close();
+            }}
+          >
+            close
+          </Button>
+        </Space>
+      </div>
+    ),
+    filterIcon: (filtered) => (
+      <SearchOutlined
+        style={{
+          color: filtered ? "#1677ff" : undefined,
+        }}
+      />
+    ),
+    onFilter: (value, record) =>
+      record[dataIndex].toString().toLowerCase().includes(value.toLowerCase()),
+    onFilterDropdownOpenChange: (visible) => {
+      if (visible) {
+        setTimeout(() => searchInput.current?.select(), 100);
+      }
+    },
+    render: (text) =>
+      searchedColumn === dataIndex ? (
+        <Highlighter
+          highlightStyle={{
+            backgroundColor: "#ffc069",
+            padding: 0,
+          }}
+          searchWords={[searchText]}
+          autoEscape
+          textToHighlight={text ? text.toString() : ""}
+        />
+      ) : (
+        text
+      ),
+  });
 
-    const getColumnSearchProps = (dataIndex) => ({
-        filterDropdown: ({ setSelectedKeys, selectedKeys, confirm, clearFilters, close }) => (
-            <div
-                style={{
-                    padding: 8,
-                }}
-                onKeyDown={(e) => e.stopPropagation()}
-            >
-                <Input
-                    ref={searchInput}
-                    placeholder={`Search ${dataIndex}`}
-                    value={selectedKeys[0]}
-                    onChange={(e) => setSelectedKeys(e.target.value ? [e.target.value] : [])}
-                    onPressEnter={() => handleSearch(selectedKeys, confirm, dataIndex)}
-                    style={{
-                        marginBottom: 8,
-                        display: 'block',
-                    }}
-                />
-                <Space>
-                    <Button
-                        type="primary"
-                        onClick={() => handleSearch(selectedKeys, confirm, dataIndex)}
-                        icon={<SearchOutlined />}
-                        size="small"
-                        style={{
-                            width: 90,
-                        }}
-                    >
-                        Search
-                    </Button>
-                    <Button
-                        onClick={() => clearFilters && handleReset(clearFilters)}
-                        size="small"
-                        style={{
-                            width: 90,
-                        }}
-                    >
-                        Reset
-                    </Button>
+  const columns = [
+    {
+      title: "ID",
+      dataIndex: "id",
+      sorter: true,
+      ...getColumnSearchProps("id"),
+      width: "6%",
+    },
+    {
+      title: "Name",
+      dataIndex: "name",
+      sorter: true,
+      ...getColumnSearchProps("name"),
+    },
+    {
+      title: "Email ID",
+      dataIndex: "emailId",
+      ...getColumnSearchProps("emailId"),
+    },
+    {
+      title: "Skills",
+      dataIndex: "skills",
+      ...getColumnSearchProps("skills"),
+    },
+    {
+      title: "Experience",
+      dataIndex: "experience",
+      ...getColumnSearchProps("experience"),
+    },
 
-                    <Button
-                        type="link"
-                        size="small"
-                        onClick={() => {
-                            close();
-                        }}
-                    >
-                        close
-                    </Button>
-                </Space>
-            </div>
-        ),
-        filterIcon: (filtered) => (
-            <SearchOutlined
-                style={{
-                    color: filtered ? '#1677ff' : undefined,
-                }}
-            />
-        ),
-        onFilter: (value, record) =>
-            record[dataIndex].toString().toLowerCase().includes(value.toLowerCase()),
-        onFilterDropdownOpenChange: (visible) => {
-            if (visible) {
-                setTimeout(() => searchInput.current?.select(), 100);
-            }
-        },
-        render: (text) =>
-            searchedColumn === dataIndex ? (
-                <Highlighter
-                    highlightStyle={{
-                        backgroundColor: '#ffc069',
-                        padding: 0,
-                    }}
-                    searchWords={[searchText]}
-                    autoEscape
-                    textToHighlight={text ? text.toString() : ''}
-                />
-            ) : (
-                text
-            ),
-    });
+    {
+      title: "Location",
+      dataIndex: "location",
+      ...getColumnSearchProps("location"),
+    },
+    {
+      title: "Action",
+      key: "action",
+      width: "15%",
+      render: () => (
+        <Space size="middle">
+          <a href="/">View Profile</a>
+        </Space>
+      ),
+    },
+  ];
 
-    const columns = [
-        {
-            dataIndex: 'avatar',
-            width: '4%',
-        },
-        {
-            title: 'Name',
-            dataIndex: 'name',
-            sorter: true,
-            ...getColumnSearchProps('name'),
-        },
-        {
-            title: 'Email ID',
-            dataIndex: 'emailId',
-            ...getColumnSearchProps('emailId'),
-        },
-        {
-            title: 'Experience',
-            dataIndex: 'experience',
-            ...getColumnSearchProps('experience'),
-        },
-        {
-            title: 'Action',
-            key: 'action',
-            width: '15%',
-            render: () => (
-                <Space size="middle">
-                    <a href="/">View Profile</a>
-                    <a href="/">Delete</a>
-                </Space>
-            ),
-        },
-    ];
-    const data = [];
-    for (let i = 1; i <= 50; i++) {
-        data.push({
-            key: i,
-            name: 'John Brown',
-            avatar: <FaUser />,
-            emailId: 'johnbrown@gmail.com',
-            experience: 'I have worked in abc company for 4 years and def company for 1 year.',
-            
-        });
-    }
+  const headerStyle = {
+    textAlign: "center",
+    color: "#000",
+    fontSize: "25px",
+    fontWeight: "bold",
+    letterSpacing: "2px",
+    height: 64,
+    paddingInline: 50,
+    lineHeight: "64px",
+    backgroundColor: "#8282f296",
+    position: "sticky",
+  };
+  return (
+    <div>
+      <Layout>
+        <Header style={headerStyle}>JobSeekers Profile</Header>
 
-    const headerStyle = {
-        textAlign: 'center',
-        color: '#000',
-        fontSize: '25px',
-        fontWeight: 'bold',
-        letterSpacing: '2px',
-        height: 64,
-        paddingInline: 50,
-        lineHeight: '64px',
-        backgroundColor: '#8282f296',
-        position: 'sticky'
-    };
-    return (
-        <div>
-            <Layout>
-                <Header style={headerStyle}>JobSeekers Profile</Header>
-                <Content>
-
-                </Content>
-                <Content>
-                    <MyTable defaultTitle={defaultTitle} columns={columns} data={data} hasData={hasData} setHasData={setHasData} />
-                </Content>
-            </Layout>
-        </div>
-    );
-
+        <Content>
+          <MyTable
+            defaultTitle={defaultTitle}
+            columns={columns}
+            data={data}
+            hasData={hasData}
+            setHasData={setHasData}
+          />
+        </Content>
+      </Layout>
+    </div>
+  );
 }
 export default JobSeekers;
