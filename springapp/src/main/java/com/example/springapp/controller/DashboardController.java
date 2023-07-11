@@ -13,7 +13,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/data")
+@RequestMapping("/admin")
 public class DashboardController {
     @Autowired
     JobsRepository jobsRepository;
@@ -23,7 +23,7 @@ public class DashboardController {
     EmployersRepository employersRepository;
     @Autowired
     JobsAppliedRepository jobsAppliedRepository;
-    @GetMapping(path = "/admin")
+    @GetMapping(path = "/statistics")
     public Map<String,Integer> getAdminData(){
         HashMap<String, Integer> map = new HashMap<>();
         int numberOfJobs=jobsRepository.getNumberOfJobs();
