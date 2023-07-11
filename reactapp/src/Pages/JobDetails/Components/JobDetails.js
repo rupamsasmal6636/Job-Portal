@@ -1,49 +1,67 @@
-import React from 'react'
-import { Button, Modal, Descriptions } from 'antd';
-import { useState } from 'react';
+import React, { useEffect, useState } from "react";
+import { Button, Modal, Descriptions } from "antd";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
-export default function () {
-    const [open, setOpen] = useState(false);
-    const showModal = () => {
-      setOpen(true);
-    };
-    const handleApply = () => {
-      setOpen(false);
-    };
-    const handleCancel = () => {
-      setOpen(false);
-    };
+export default function JobDetailsModal({ id, open, setOpen }) {
+  const [job, setJob] = useState({
+    id: "",
+    title: "",
+    description: "",
+    requirements: "",
+    location: "",
+  });
+
+  useEffect(() => {
+    loadJob();
+  }, []);
+
+  const loadJob = async () => {
+    const result = await axios.get(`http://localhost:8080/jobs/${id}`);
+    setJob(result.data);
+  };
+
+  const showModal = () => {
+    setOpen(true);
+  };
+  const handleApply = () => {
+    setOpen(false);
+  };
+  const handleCancel = () => {
+    setOpen(false);
+  };
+
   return (
     <>
-      <Button type="primary" onClick={showModal}>
-        Open Modal
-      </Button>
-      <Modal  centered width={1000} open={open} onOk={handleApply} onCancel={handleCancel} footer={[
+      <Modal
+        centered
+        width={1000}
+        open={open}
+        onOk={handleApply}
+        onCancel={handleCancel}
+        footer={[
           <Button key="back" onClick={handleCancel}>
             Back
           </Button>,
-          <Button key="link"
-          href="#" type="primary" onClick={handleApply}>
+          <Button key="link" href="#" type="primary" onClick={handleApply}>
             Apply
           </Button>,
-        ]}>
+        ]}
+      >
         <Descriptions title="Job Details" column={2}>
-            <Descriptions.Item label="Job id">7126545</Descriptions.Item>
-            <Descriptions.Item label="Posted on">21/06/2023</Descriptions.Item>
-            <Descriptions.Item label="Company Name">Virtusa</Descriptions.Item>
-            <Descriptions.Item label="Job Role">FullStack Java Developer</Descriptions.Item>
-            <Descriptions.Item label="Required Skills">Java, SpringBoot, React, MySQL</Descriptions.Item>
-            <Descriptions.Item label="Job Location">Hyderabad</Descriptions.Item>
-            <Descriptions.Item label="Job Description">
-            Fugiat ipsum ipsum deserunt culpa aute sint do nostrud anim incididunt cillum culpa consequat. Excepteur
-              qui ipsum aliquip consequat sint. Sit id mollit nulla mollit nostrud in ea officia proident. Irure nostrud
-              pariatur mollit ad.Fugiat ipsum ipsum deserunt culpa aute sint do nostrud anim incididunt cillum culpa consequat. Excepteur
-              at ipsum ipsum deserunt culpa aute sint do nostrud anim incididunt cillum culpa consequat. Excepteur
-              qui ipsum aliquip consequat sint. Sit id mollit nulla mollit nostrud in ea officia proident. Irure nostrud
-              pariatur mollit ad.
-            </Descriptions.Item>
+          <Descriptions.Item label="Job id">{job.id}</Descriptions.Item>
+          <Descriptions.Item label="Job Tittle">{job.title}</Descriptions.Item>
+          <Descriptions.Item label="Job Description">
+            {job.description}
+          </Descriptions.Item>
+          <Descriptions.Item label="Job Requirements">
+            {job.requirements}
+          </Descriptions.Item>
+          <Descriptions.Item label="Job Location">
+            {job.location}
+          </Descriptions.Item>
         </Descriptions>
       </Modal>
     </>
-  )
+  );
 }
