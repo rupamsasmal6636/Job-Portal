@@ -105,7 +105,7 @@ class SpringappApplicationTests {
 	    
 	        mockMvc.perform(MockMvcRequestBuilders.post("/jobs")
 	                .contentType(MediaType.APPLICATION_JSON)
-	                .content(asJsonString(emp1)))
+	                .content(asJsonString(j1)))
 	                .andExpect(MockMvcResultMatchers.status().isCreated());
 
 	    }

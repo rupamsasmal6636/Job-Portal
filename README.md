@@ -30,3 +30,10 @@ Example: **`baseURL: "http://localhost:8080"`** . Here Update the baseURL with S
 ## To update Reactapp PORT URL in Springapp:
 ### Go to `springapp\src\main\java\com\example\springapp\controller` and open all the controller classes (DashboardController, EmployersController, JobsController, JobSeekersController, UserController) and there Update all the @CrossOrigin URLs with Reactapp URL.
 Example: **`@CrossOrigin("http://localhost:3000")`** . Here Update the URL with Reactapp port URL.
+
+# *Note: Update your MySQL server password in application.properties inside springapp*
+## To update SQL server password in Springapp:
+### Go to `springapp\src\main\resources\application.properties` and in *line no. 3 & 4*, update the username and password with your system
+Example: **`spring.datasource.username=root`** this is the username and **`spring.datasource.password=root123@`** this is the password.
+
+
