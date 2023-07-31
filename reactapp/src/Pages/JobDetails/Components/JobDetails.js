@@ -1,24 +1,26 @@
 import React, { useEffect, useState } from "react";
 import { Button, Modal, Descriptions } from "antd";
-import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 export default function JobDetailsModal({ id, open, setOpen }) {
-  const [job, setJob] = useState({
-    id: "",
-    title: "",
-    description: "",
-    requirements: "",
-    location: "",
-  });
+  const [job, setJob] = useState([]);
 
   useEffect(() => {
     loadJob();
   }, []);
 
   const loadJob = async () => {
-    const result = await axios.get(`http://localhost:8080/jobs/${id}`);
-    setJob(result.data);
+    try {
+      const response = await axios.get(`http://localhost:8080/jobs/?id=${id}`);
+      const dataArray=response.data;
+      if(dataArray.length>0){
+        const first=dataArray[0];
+        setJob(first);
+      }
+      
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   const showModal = () => {

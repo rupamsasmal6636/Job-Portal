@@ -19,20 +19,29 @@ public class Jobs {
     private String requirements;
     private String location;
 
-    @JsonIgnore
     @ManyToOne
-//    @JsonProperty(value="employer_applied")
-
     @JoinColumn(name = "employer_id")
     private Employer employer;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "jobs",cascade = CascadeType.ALL)
     private List<JobsApplied> jobsApplied;
 
     public Jobs() {
         // default constructor
     }
-    public Jobs(String title, String description, String requirements, String location, Employer employer, List<JobsApplied> jobsApplied) {
+
+    public Jobs(Long id, String title, String description, String requirements, String location, Employer employer) {
+        this.id = id;
+        this.title = title;
+        this.description = description;
+        this.requirements = requirements;
+        this.location = location;
+        this.employer = employer;
+    }
+
+    public Jobs(Long id, String title, String description, String requirements, String location, Employer employer, List<JobsApplied> jobsApplied) {
+        this.id = id;
         this.title = title;
         this.description = description;
         this.requirements = requirements;
@@ -81,8 +90,6 @@ public class Jobs {
         this.location = location;
     }
 
-    @JsonBackReference
-//    @JsonManagedReference
     public Employer getEmployer() {
         return employer;
     }
@@ -91,7 +98,7 @@ public class Jobs {
         this.employer = employer;
     }
 
-//    @JsonManagedReference
+    @JsonIgnore
     public List<JobsApplied> getJobsApplied() {
         return jobsApplied;
     }
@@ -108,7 +115,7 @@ public class Jobs {
                 ", description='" + description + '\'' +
                 ", requirements='" + requirements + '\'' +
                 ", location='" + location + '\'' +
-                ", employer=" + employer +
+                // ", employer=" + employer +
                 ", jobsApplied=" + jobsApplied +
                 '}';
     }

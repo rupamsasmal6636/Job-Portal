@@ -5,6 +5,9 @@ import com.example.springapp.repository.JobSeekersRepository;
 import com.example.springapp.repository.JobsAppliedRepository;
 import com.example.springapp.repository.JobsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -14,6 +17,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/admin")
+@CrossOrigin("http://localhost:3000")
 public class DashboardController {
     @Autowired
     JobsRepository jobsRepository;
@@ -24,7 +28,7 @@ public class DashboardController {
     @Autowired
     JobsAppliedRepository jobsAppliedRepository;
     @GetMapping(path = "/statistics")
-    public Map<String,Integer> getAdminData(){
+    public ResponseEntity<Map<String,Integer>> getAdminData(){
         HashMap<String, Integer> map = new HashMap<>();
         int numberOfJobs=jobsRepository.getNumberOfJobs();
         int numberOfJobSeeker=jobSeekersRepository.getNumberOfJobSeeker();
@@ -34,6 +38,7 @@ public class DashboardController {
         map.put("job-application", numberOfJobApplication);
         map.put("job-seeker", numberOfJobSeeker);
         map.put("employer", numberOfEmployers);
-        return map;
+        return ResponseEntity.status(HttpStatus.OK).body(map);
     }
+
 }
