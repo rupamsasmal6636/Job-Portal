@@ -6,7 +6,7 @@ export const MenuLists = [
     },
     {
       title: "Vijay Sharma",
-      description: "Job Portal provided me with the tools and resources needed to land my first job after college. The website is user-friendly and helped me to customize my application to my desired field. I would highly recommend Job Portal to anyone looking for job opportunities in Karur.",
+      description: "Job Portal provided me with the tools and resources needed to land my first job after college. The website is user-friendly and helped me to customize my application to my desired field. I would highly recommend Job Portal to anyone looking for job opportunity.",
     },
     {
       title: "Karthik Raja",

@@ -10,7 +10,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-//@JsonIgnoreProperties(ignoreUnknown = true)
 public class Employer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -18,11 +17,9 @@ public class Employer {
     private String name;
     private String description;
     private String location;
-    @JsonIgnore
-    @OneToOne
-    @JoinColumn(name = "user_id")
-    private User user;
 
+    private long userId;
+    @JsonIgnore
     @OneToMany(mappedBy = "employer",cascade = CascadeType.ALL)
     private List<Jobs> jobs;
 
@@ -30,12 +27,21 @@ public class Employer {
         // default constructor
     }
 
-    public Employer(String name, String description, String location, User user, List<Jobs> jobs) {
+    public Employer(Long id, String name, String description, String location, long userId, List<Jobs> jobs) {
+        this.id = id;
         this.name = name;
         this.description = description;
         this.location = location;
-        this.user = user;
+        this.userId = userId;
         this.jobs = jobs;
+    }
+
+    public Employer(Long id, String name, String description, String location, long userId) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.location = location;
+        this.userId = userId;
     }
 
     public Long getId() {
@@ -70,18 +76,15 @@ public class Employer {
         this.location = location;
     }
 
+    public long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(long userId) {
+        this.userId = userId;
+    }
+
     @JsonBackReference
-//    @JsonManagedReference
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
-    @JsonManagedReference
-//    @JsonBackReference
     public List<Jobs> getJobs() {
         return jobs;
     }
@@ -97,7 +100,7 @@ public class Employer {
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
                 ", location='" + location + '\'' +
-                ", userId=" + user +
+                ", userId=" + userId +
                 ", jobs=" + jobs +
                 '}';
     }
